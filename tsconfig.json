@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "typeRoots": ["node_modules/@types", "custom-typings"],
+    "types": ["node", "body-parser"],
+
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,5 +26,5 @@
   },
   "include": [
     "src"
-  ]
+, "Client/mailgun.js"  ]
 }
