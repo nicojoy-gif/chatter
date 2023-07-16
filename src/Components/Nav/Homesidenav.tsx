@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import n from "../../styles/Vect.png";
 import n1 from "../../styles/Vec.png";
 import n3 from "../../styles/Vector (1).png";
@@ -20,7 +20,6 @@ type Post = {
 };
 
 function Homesidenav({ isOpen }: SidebarProps) {
-  const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const [selectedTag, setSelectedTag] = useState("");
   const [matchingPosts, setMatchingPosts] = useState<Post[]>([]);
 

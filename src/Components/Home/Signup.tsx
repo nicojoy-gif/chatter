@@ -4,13 +4,10 @@ import { auth } from "../../Config/firebase";
 import { useNavigate, Link } from "react-router-dom";
 import logging from "../../Config/logging";
 import ErrorText from "../Error";
-import firebase from "firebase/compat";
-import { SignInWithSM } from "./Social";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import App from "../linkedin/App";
 import {Helmet} from 'react-helmet'
 type User = {
   fullname: string;
@@ -132,21 +129,7 @@ function Sign() {
     };
     handleClick();
   };
-  const signInWithSM = (provider: firebase.auth.AuthProvider) => {
-    if (error !== "") setError("");
-    setRegister(true);
-
-    SignInWithSM(provider)
-      .then((result) => {
-        logging.info(result);
-        navigate("/dash");
-      })
-      .catch((error) => {
-        logging.error(error);
-        setRegister(false);
-        setError(error);
-      });
-  };
+  
 
   return (
     <div>
@@ -398,7 +381,7 @@ function Sign() {
                      
                       <div className="relative font-medium ">
                         <div className="mx-auto text-center">
-                          <App />
+                          
                           <ErrorText error={error} />
                         </div>
                       </div>

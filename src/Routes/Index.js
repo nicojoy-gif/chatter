@@ -12,7 +12,6 @@ import Profile from "../Components/Account/Profile";
 
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import App from "../Components/linkedin/App";
 import Account from "../Components/Account/Account";
 import AccountSetting from "../Components/Account/AccountSetting";
 import PostDetails from "../Components/Posts/PostDetails";
@@ -32,7 +31,6 @@ function Index() {
         <Route path="/dash" element={<Dashbord />} />
         <Route path="/dashs/:id" element={<PostDetails />} />
         <Route path="/post" element={<Post />} />
-        <Route path="/link" element={<App />} />
         <Route path="/setting" element={<AccountSetting />} />
         <Route
           path="/sign"

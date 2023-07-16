@@ -5,10 +5,9 @@ import { Link, Outlet } from "react-router-dom";
 import Feed from "./Feed";
 import Topbar from "../Nav/Topbar";
 import { AuthContext } from "../../context/AuthContext";
-import Recent from "../linkedin/Recent";
+import Recent from "./Recent";
 import AllFeed from "./Allfeed";
-import axios from "axios";
-import { logPageView, logEvent } from '../ga';
+import { logPageView } from '../ga';
 import {Helmet} from 'react-helmet'
 
 

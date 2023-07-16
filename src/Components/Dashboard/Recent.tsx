@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import Timeline from "../Dashboard/Timeline";
+import Timeline from "./Timeline";
 import { AuthContext } from "../../context/AuthContext";
 import { AxiosResponse } from "axios";
 interface FeedProps {

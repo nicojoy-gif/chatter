@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import avatar from "../../styles/avatar.png";
 import edit from "../../styles/edit-423.png";
 import { AuthContext } from "../../context/AuthContext";
@@ -21,7 +21,6 @@ interface FormData {
 }
 
 const AccountSetting: React.FunctionComponent<AccountSettingProps> = () => {
-  const location = useLocation();
   const storedFormData = localStorage.getItem("editedFormData");
   const editedFormDatas: FormData | null = storedFormData
     ? JSON.parse(storedFormData)
@@ -36,7 +35,7 @@ const AccountSetting: React.FunctionComponent<AccountSettingProps> = () => {
 
   useEffect(() => {
     fetchFormData();
-  }, [user._id]);
+  });
 
   const fetchFormData = async () => {
     try {

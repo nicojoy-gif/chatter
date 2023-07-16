@@ -12,8 +12,7 @@ function Profile() {
   const [user, setUser] = useState<any>({});
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profilePicture, setProfilePicture] = useState(user.profilePicture || avatar);
-  const [coverPicture, setCoverPicture] = useState(user.coverPicture || background);
-
+  
   const username = useParams().username;
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -74,7 +73,7 @@ function Profile() {
       <div className='lg:!pl-[240px]'>
         <div className='grid'>
           <div className='h-96 relative w-full'>
-            <img src={coverPicture} className='w-full h-80' alt='coverpicture' />
+            <img src={background} className='w-full h-80' alt='coverpicture' />
 
             <label htmlFor='profilePictureInput'>
               <img
