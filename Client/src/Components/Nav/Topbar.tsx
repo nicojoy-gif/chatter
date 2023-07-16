@@ -36,7 +36,7 @@ function Topbar({ onToggleSidebar }: TopbarProps) {
 
   return (
     <div>
-      <nav className="border-b border-gray-300 h-14 fixed w-full bg-white">
+      <nav className="border-b border-gray-300 h-14 fixed w-full bg-white z-50">
         <div className="">
           <div className="grid place-items-center content-center">
             <div className="relative mt-1">
