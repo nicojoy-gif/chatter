@@ -167,7 +167,7 @@ function Post() {
                 {user && (
                   <img
                     className="h-10 w-12  rounded-full  "
-                    src={user.profilePicture || avatar}
+                    src={avatar || user.profilePicture}
                     alt="profilepicture"
                   />
                 )}

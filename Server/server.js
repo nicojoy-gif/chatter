@@ -41,7 +41,9 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
     console.log(err);
   }
 });
-
+app.get('/', (req,res) => {
+  res.send('welcome')
+})
 app.use("/api/profile", profileRoute);
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
