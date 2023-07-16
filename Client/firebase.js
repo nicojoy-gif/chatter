@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 const mailgun = require('mailgun.js');
 
-const serviceaccount = require("./chatter-c981a-firebase-adminsdk-u0w8w-eaa4204326.json") // get json file from firebase console
+const serviceaccount = require("./serviceAccountKey.json") // get json file from firebase console
 admin.initializeApp({
   projectId: serviceaccount.project_id,
   credential: admin.credential.cert(serviceaccount),

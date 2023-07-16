@@ -1,25 +1,26 @@
-import React, { useContext, useState } from "react";
+import  { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
-import About from "../Components/About";
-import Home from "../Components/Home";
-import Sign from "../Components/Signup";
-import Login from "../Components/Login";
+import About from "../Components/Home/About";
+import Home from "../Components/Home/Home";
+import Sign from "../Components/Home/Signup";
+import Login from "../Components/Home/Login";
 import ErrorPage from "../Components/ErrorPage";
-import Dashbord from "../Components/Dashbord";
-import LogoutPage from "../Components/Logout";
-import Post from "../Components/Post";
-import Profile from "../Components/Profile";
+import Dashbord from "../Components/Dashboard/Dashbord";
+import LogoutPage from "../Components/Home/Logout";
+import Post from "../Components/Posts/Post";
+import Profile from "../Components/Account/Profile";
 
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import App from "../Components/linkedin/App";
-import Account from "../Components/Account";
-import AccountSetting from "../Components/AccountSetting";
-import PostDetails from "../Components/PostDetails";
+import Account from "../Components/Account/Account";
+import AccountSetting from "../Components/Account/AccountSetting";
+import PostDetails from "../Components/Posts/PostDetails";
 
 import BookmarkedPosts from "../Components/bookmark/BookmarkedPostsPage";
-import MatchedPosts from "../Components/Matched";
-import MatchedPostsPage from "../Components/MatchPostPage";
+import MatchedPosts from "../Components/bookmark/Matched";
+import MatchedPostsPage from "../Components/bookmark/MatchPostPage";
+import AnalyticsView from "../Components/Analytics/AnaltyicView";
 
 function Index() {
   const { user } = useContext(AuthContext);
@@ -38,6 +39,7 @@ function Index() {
           element={user ? <Navigate to="/dash" /> : <Sign />}
         />
         <Route path="/matched-posts/:tag" element={<MatchedPostsPage />} />
+        <Route path="/analytics" element={<AnalyticsView />}/>
         <Route path="/match" element={<MatchedPosts />} /> {/* Updated route */}
         <Route path="/profile/:username" element={<Profile />} />
         <Route

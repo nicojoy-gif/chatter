@@ -2,14 +2,25 @@ const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const admin = require("firebase-admin");
+const express = require('express');
+const session = require('express-session');
+const app = express();
 
-const serviceaccount = require("../chatter-c981a-firebase-adminsdk-u0w8w-dcb31e2f06.json"); // get json file from firebase console
+
+router.use(
+  session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+const serviceaccount = require("../serviceAccountKey.json"); // get json file from firebase console
 admin.initializeApp({
   projectId: serviceaccount.project_id,
   credential: admin.credential.cert(serviceaccount),
   serviceAccountId: serviceaccount.client_email, //Tt is used for creating firebase auth credentials
 });
-exports.auth = admin.auth();
+const auth = admin.auth();
 
 router.post("/register", async (req, res) => {
   try {
@@ -63,5 +74,22 @@ router.post("/login", async (req, res) => {
     console.log(err);
   }
 });
+router.post('/logout', (req, res) => {
+  // Perform the logout action here
+  // For example, you can clear the session or perform any other necessary tasks
+
+  // Assuming you are using session-based authentication, you can destroy the session to log out the user
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
+
+
 
 module.exports = router;

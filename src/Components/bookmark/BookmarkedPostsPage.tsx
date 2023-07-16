@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import Topbar from "../Topbar";
-import Homesidenav from "../Homesidenav";
-import Timeline from "../Timeline";
+import Topbar from "../Nav/Topbar";
+import Homesidenav from "../Nav/Homesidenav";
+import Timeline from "../Dashboard/Timeline";
 
 const BookmarkedPosts = () => {
   // State to store the bookmarked posts
@@ -26,8 +26,6 @@ const BookmarkedPosts = () => {
           `http://localhost:5000/api/posts/${user._id}/bookmarks`
         );
         const { data } = response;
-        const bookmarked = data.bookmarks;
-
         setBookmarkedPosts(data.bookmarks);
       } catch (error) {
         console.error("Error fetching bookmarked posts:", error);

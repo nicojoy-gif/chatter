@@ -1,29 +1,42 @@
 const User = require("../models/User");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
+const multer = require('multer');
 
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './public/'); // Specify the directory where uploaded files will be stored
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname); // Generate a unique filename
+  },
+});
+
+// Create multer instance with the configured storage
+const upload = multer({ storage });
 //update user
-router.put("/:id", async (req, res) => {
-  if (req.body.userId === req.params.id || req.body.isAdmin) {
-    if (req.body.password) {
+
+router.put('/:id', upload.single('profilePicture'), async (req, res) => {
+ 
+    if (req.file) {
+      // Handle profile picture update
+      const profilePicturePath = req.file.path;
+
       try {
-        const salt = await bcrypt.genSalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt);
+        // Update the user's profile picture in the database
+        await User.findByIdAndUpdate(req.params.id, {
+          $set: { profilePicture: profilePicturePath },
+        });
+
+        res.status(200).json('Profile picture has been updated');
       } catch (err) {
         return res.status(500).json(err);
       }
+    } else {
+      return res.status(400).json('No profile picture file provided');
     }
-    try {
-      const user = await User.findByIdAndUpdate(req.params.id, {
-        $set: req.body,
-      });
-      res.status(200).json("Account has been updated");
-    } catch (err) {
-      return res.status(500).json(err);
-    }
-  } else {
-    return res.status(403).json("Update only your account");
-  }
+  
 });
 
 //get friends

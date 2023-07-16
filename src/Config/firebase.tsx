@@ -1,7 +1,7 @@
 import "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import "firebase/firestore";
+import "firebase/compat/firestore";
 import config from "./config";
 import { getFunctions } from "firebase/functions";
 
@@ -11,6 +11,6 @@ export const functions = getFunctions(Firebase);
 export const Proiders = {
   google: new firebase.auth.GoogleAuthProvider(),
 };
+export const auth = Firebase.auth();
 
-export const auth = firebase.auth();
 export default Firebase;

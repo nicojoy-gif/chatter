@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { LinkedInApi } from "./config";
-import linked from "../../styles/linked.png";
 
 import { NodeServer } from "./config";
 const App = () => {
@@ -23,7 +22,7 @@ const App = () => {
     return () => {
       window.removeEventListener("message", handlePostMessage);
     };
-  }, []);
+  }, [handlePostMessage]);
 
   const handlePostMessage = (event) => {
     if (event.data.type === "code") {
@@ -75,20 +74,7 @@ const App = () => {
 
   const contentWhenLoggedOut = (
     <>
-      <div className="w-6 h-3 absolute top-1/2 transform -translate-y-1/2 left-20">
-        <img
-          src={linked}
-          alt="Sign in with LinkedIn"
-          onClick={showPopup}
-          className="mt-1"
-        />
-      </div>
-      <button
-        className='text-gray-700 w-full py-2 mt-5 bg-white border mx-2 border-gray-300 text-center rounded-md  shadow-sm  focus:outline-none focus:ring"'
-        onClick={showPopup}
-      >
-        Sign in with LinkedIn
-      </button>
+      
     </>
   );
 
