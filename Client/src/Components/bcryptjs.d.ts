@@ -6,6 +6,7 @@ declare module 'react-quill'
 declare module 'react-router-dom';
 declare module 'gapi-script'
 declare module 'react-ga4'
+declare module 'timeago.js/dist'
 // custom-types.d.ts
 
 declare module 'babel__core' {

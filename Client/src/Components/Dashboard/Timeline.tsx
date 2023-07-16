@@ -6,7 +6,7 @@ import { format } from "timeago.js";
 import avatar from "../../styles/avatar.png";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-import {Helmet} from 'react-helmet'
+import { Helmet } from "react-helmet";
 import { logEvent } from "../ga";
 interface TimelineProps {
   Post: any;
@@ -17,11 +17,13 @@ interface Comment {
 }
 const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   const [user] = useState<any>({});
-  const [like, setLike] = useState<number>(Post.likes ? Post.likes.length : 0); 
+  const [like, setLike] = useState<number>(Post.likes ? Post.likes.length : 0);
   const [isliked, setisLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [comment, setComment] = useState<any>("");
-  const [viewCount, setViewCount] = useState<number>(Post.likes ? Post.view.length : 0);
+  const [viewCount, setViewCount] = useState<number>(
+    Post.likes ? Post.view.length : 0
+  );
   const [view, setView] = useState<boolean>(false);
   const [commentCount, setCommentCount] = useState(0);
   const [isCommentBoxOpen, setCommentBoxOpen] = useState(false);
@@ -31,13 +33,11 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   const [isBookmarked, setIsBookmarked] = useState<boolean>(
     Post.bookmarks?.includes(currentUser?._id) || false
   );
-
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = "http://localhost:5000/images/";
 
   useEffect(() => {
     setisLiked(Post.likes.includes(currentUser?._id));
   }, [currentUser._id, Post.likes]);
-  console.log(Post.tags);
   useEffect(() => {
     setView(Post.view.includes(currentUser?._id));
   }, [currentUser._id, Post.view]);
@@ -62,8 +62,6 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   const bookmarkHandler = async () => {
     setIsBookmarked(!isBookmarked);
-    console.log(bookmarks)
-  
     try {
       const response = await axios.post(
         `http://localhost:5000/api/posts/${Post._id}/bookmarks`,
@@ -71,25 +69,23 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
           userId: currentUser._id,
         }
       );
-  
+
       const { message, bookmarks } = response.data;
-  
+
       if (
         message === "Post added to bookmarks" ||
         message === "Post removed from bookmarks"
       ) {
         setBookmarks(bookmarks);
-      
-        console.log(bookmarks);
       }
     } catch (error) {
       console.error("Error adding/removing bookmark:", error);
     }
-  
+
     // Track the bookmark event
-    logEvent('Post Bookmarked', { postId: Post._id });
+    logEvent("Post Bookmarked", { postId: Post._id });
   };
-  
+
   const toggleCommentBox = () => {
     setCommentBoxOpen(!isCommentBoxOpen);
   };
@@ -100,14 +96,13 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
         userId: currentUser._id,
       });
     } catch (err) {}
-  
+
     // Track the like event
-    logEvent('Post Liked', { postId: Post._id });
-  
+    logEvent("Post Liked", { postId: Post._id });
+
     setLike(isliked ? like - 1 : like + 1);
     setisLiked(!isliked);
   };
-  
 
   const incrementViewCount = async () => {
     try {
@@ -115,20 +110,13 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
         "http://localhost:5000/api/posts/" + Post._id + "/view",
         { userId: currentUser._id }
       );
-      console.log(response);
-  
-      // Track the view event
-      logEvent('Post Viewed', { postId: Post._id });
+      logEvent("Post Viewed", { postId: Post._id });
     } catch (error) {
       console.error("Error:", error);
-      // Handle the error accordingly
     }
-  
     setViewCount(viewCount);
     setView(!view);
   };
-  
-  // Function to handle opening and closing of the comment box
   const handlePostComment = () => {
     const newComment: Comment = {
       id: comments.length + 1,
@@ -149,22 +137,21 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
           userId: userId,
         }
       );
-  
+
       const newComment = response.data.comment;
-  
+
       console.log("New Comment:", newComment);
     } catch (err) {
       console.error("Error:", err);
     }
     handlePostComment();
-  
+
     // Track the comment event
-    logEvent('Post Commented', { postId: Post._id });
+    logEvent("Post Commented", { postId: Post._id });
   };
-  
   return (
     <div>
-       <Helmet>
+      <Helmet>
         <title>{Post.title}</title>
         <meta name="description" content={Post.subtitle} />
       </Helmet>
