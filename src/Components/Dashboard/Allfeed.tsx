@@ -52,6 +52,7 @@ const AllFeed: React.FunctionComponent<FeedProps> = ({ username }) => {
       {!username || username === user.username}
       {posts.map((p: any) => (
         <Timeline key={p._id} Post={p} />
+        
       ))}
     </div>
   );
