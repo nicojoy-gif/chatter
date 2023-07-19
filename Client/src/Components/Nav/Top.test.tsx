@@ -13,7 +13,7 @@ describe("Topbar", () => {
   });
 
   test("displays search results when searching for a tag", async () => {
-    // Mock the response from the API request
+    
     const mockResponse = {
       data: [
         { _id: "1", title: "Post 1" },
