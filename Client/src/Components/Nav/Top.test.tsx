@@ -51,7 +51,7 @@ describe("Topbar", () => {
 
     // Assert that the API request was made with the correct URL
     expect(axios.get).toHaveBeenCalledWith(
-      "http://localhost:5000/api/posts/search?tag=Programming"
+      "https://chattered.onrender.com/api/posts/search?tag=Programming"
     );
   });
 });
