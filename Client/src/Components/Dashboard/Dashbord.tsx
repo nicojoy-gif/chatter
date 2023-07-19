@@ -7,10 +7,8 @@ import Topbar from "../Nav/Topbar";
 import { AuthContext } from "../../context/AuthContext";
 import Recent from "./Recent";
 import AllFeed from "./Allfeed";
-import { logPageView } from '../ga';
-import {Helmet} from 'react-helmet'
-
-
+import { logPageView } from "../ga";
+import { Helmet } from "react-helmet";
 
 function Dashboard() {
   const storedUser = localStorage.getItem("user");
@@ -20,33 +18,25 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
- 
- 
-  
-// Call logPageView to track a page view
-useEffect(() => {
-  logPageView();
-}, []);
+
+  // Call logPageView to track a page view
+  useEffect(() => {
+    logPageView();
+  }, []);
   useEffect(() => {
     if (contextUser) {
-     
       setUser(contextUser);
       localStorage.setItem("user", JSON.stringify(contextUser));
     }
-  
   }, [contextUser]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  
-
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex === activeTab ? -1 : tabIndex);
   };
-
-  
 
   useEffect(() => {
     if (!isLoading) {
@@ -66,7 +56,7 @@ useEffect(() => {
     <div>
       <Helmet>
         <title>Account Dashboard </title>
-        <meta name="description" content='Welcome to my Account Dashboard ' />
+        <meta name="description" content="Welcome to my Account Dashboard " />
       </Helmet>
       <Topbar onToggleSidebar={toggleSidebar} />
       <Homesidenav isOpen={sidebarOpen} onToggleSidebar={toggleSidebar} />

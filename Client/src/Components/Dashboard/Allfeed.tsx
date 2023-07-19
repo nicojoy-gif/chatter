@@ -18,7 +18,9 @@ const AllFeed: React.FunctionComponent<FeedProps> = ({ username }) => {
       try {
         let response: any;
         if (username) {
-          response = await axios.get("https://chattered.onrender.com/api/posts");
+          response = await axios.get(
+            "https://chattered.onrender.com/api/posts"
+          );
         } else {
           response = await axios.get(
             "https://chattered.onrender.com/api/posts/timeline/" + user._id
@@ -52,7 +54,6 @@ const AllFeed: React.FunctionComponent<FeedProps> = ({ username }) => {
       {!username || username === user.username}
       {posts.map((p: any) => (
         <Timeline key={p._id} Post={p} />
-        
       ))}
     </div>
   );

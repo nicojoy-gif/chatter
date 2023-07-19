@@ -33,9 +33,12 @@ const Foryou: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   const likeHandler = () => {
     try {
-      axios.put("https://chattered.onrender.com/api/posts/" + Post._id + "/like", {
-        userId: currentUser._id,
-      });
+      axios.put(
+        "https://chattered.onrender.com/api/posts/" + Post._id + "/like",
+        {
+          userId: currentUser._id,
+        }
+      );
     } catch (err) {}
     setLike(isliked ? like - 1 : like + 1);
     setisLiked(!isliked);

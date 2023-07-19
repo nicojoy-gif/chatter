@@ -92,9 +92,12 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   const likeHandler = () => {
     try {
-      axios.put("https://chattered.onrender.com/api/posts/" + Post._id + "/like", {
-        userId: currentUser._id,
-      });
+      axios.put(
+        "https://chattered.onrender.com/api/posts/" + Post._id + "/like",
+        {
+          userId: currentUser._id,
+        }
+      );
     } catch (err) {}
 
     // Track the like event
