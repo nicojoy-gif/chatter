@@ -24,12 +24,15 @@ function Homesidenav({ isOpen }: SidebarProps) {
   const [matchingPosts, setMatchingPosts] = useState<Post[]>([]);
 
   const navigate = useNavigate();
-  
+
   const handleTagClick = async (tag: string) => {
     setSelectedTag(tag);
 
     try {
-      console.log("Calling axios.get with URL:", `https://chattered.onrender.com/api/posts/search?tag=${tag}`);
+      console.log(
+        "Calling axios.get with URL:",
+        `https://chattered.onrender.com/api/posts/search?tag=${tag}`
+      );
       const response = await axios.get(
         `https://chattered.onrender.com/api/posts/search?tag=${tag}`
       );
