@@ -59,7 +59,8 @@ function Login() {
       email: email,
       password: password,
     };
-
+console.log(userCredential)
+console.log(dispatch)
     loginCall(userCredential, dispatch);
 
     console.log(errors);

@@ -20,7 +20,7 @@ const MatchedPosts: React.FC<MatchedPostsProps> = ({ tag }) => {
     const fetchMatchedPosts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/posts/search?tag=${tag}`
+          `https://chattered.onrender.com/api/posts/search?tag=${tag}`
         );
         console.log(tag);
         console.log(response);

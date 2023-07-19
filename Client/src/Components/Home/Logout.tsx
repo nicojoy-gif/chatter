@@ -10,7 +10,7 @@ const LogoutPage: React.FunctionComponent<LogoutProps> = () => {
   const navigate = useNavigate();
   const logout = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/logout");
+      const response = await axios.post("https://chattered.onrender.com/api/auth/logout");
       if (response.status === 200) {
         // Logout successful
        navigate('/login')

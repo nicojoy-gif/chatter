@@ -40,7 +40,7 @@ const AccountSetting: React.FunctionComponent<AccountSettingProps> = () => {
   const fetchFormData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/profile/fetchSubmittedData/${user._id}`
+        `https://chattered.onrender.com/api/profile/fetchSubmittedData/${user._id}`
       );
       const data: FormData[] = response.data;
       setEditedFormData(data[0]);
@@ -74,7 +74,7 @@ const AccountSetting: React.FunctionComponent<AccountSettingProps> = () => {
     try {
       await firebase.auth().currentUser?.delete();
       const response = await fetch(
-        `http://localhost:5000/api/users/${user._id}`,
+        `https://chattered.onrender.com/api/users/${user._id}`,
         {
           method: "DELETE",
           headers: {

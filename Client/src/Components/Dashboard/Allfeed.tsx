@@ -18,10 +18,10 @@ const AllFeed: React.FunctionComponent<FeedProps> = ({ username }) => {
       try {
         let response: any;
         if (username) {
-          response = await axios.get("http://localhost:5000/api/posts");
+          response = await axios.get("https://chattered.onrender.com/api/posts");
         } else {
           response = await axios.get(
-            "http://localhost:5000/api/posts/timeline/" + user._id
+            "https://chattered.onrender.com/api/posts/timeline/" + user._id
           );
         }
 

@@ -29,9 +29,9 @@ function Homesidenav({ isOpen }: SidebarProps) {
     setSelectedTag(tag);
 
     try {
-      console.log("Calling axios.get with URL:", `http://localhost:5000/api/posts/search?tag=${tag}`);
+      console.log("Calling axios.get with URL:", `https://chattered.onrender.com/api/posts/search?tag=${tag}`);
       const response = await axios.get(
-        `http://localhost:5000/api/posts/search?tag=${tag}`
+        `https://chattered.onrender.com/api/posts/search?tag=${tag}`
       );
       setMatchingPosts(response.data);
     } catch (error) {

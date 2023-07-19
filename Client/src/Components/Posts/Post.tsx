@@ -69,14 +69,14 @@ function Post() {
       newPost.img = fileName;
       console.log(newPost);
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post("https://chattered.onrender.com/api/upload", data);
         navigate("/dash");
       } catch (err) {
         console.log(err);
       }
     }
     try {
-      await axios.post("http://localhost:5000/api/posts", newPost);
+      await axios.post("https://chattered.onrender.com/api/posts", newPost);
     } catch (err) {
       console.log(err);
     }

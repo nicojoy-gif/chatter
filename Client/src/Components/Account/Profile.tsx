@@ -25,7 +25,7 @@ function Profile() {
 
     try {
       // Send the file to the backend API endpoint
-      await axios.put(`http://localhost:5000/api/users/${user._id}`, formData, {
+      await axios.put(`https://chattered.onrender.com/api/users/${user._id}`, formData, {
         
       headers: {
           'Content-Type': 'multipart/form-data',
@@ -51,7 +51,7 @@ function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users?username=${username}`);
+        const res = await axios.get(`https://chattered.onrender.com/api/users?username=${username}`);
         setUser(res.data);
         
       } catch (error) {

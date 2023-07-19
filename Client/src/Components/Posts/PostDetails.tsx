@@ -34,7 +34,7 @@ const PostDetails: React.FunctionComponent<PostDetailsProps> = ({ Post }) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const res = await axios.get(`https://chattered.onrender.com/api/posts/${id}`);
         setPost(res.data);
       } catch (err) {
         console.log(err);

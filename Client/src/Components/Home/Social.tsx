@@ -11,7 +11,7 @@ export const SignInWithSM = (provider: firebase.auth.AuthProvider) =>
       
       console.log(user.email);
       try {
-        await axios.post("http://localhost:5000/api/auth/register", user);
+        await axios.post("https://chattered.onrender.com/api/auth/register", user);
 
         console.log(user);
       } catch (err) {

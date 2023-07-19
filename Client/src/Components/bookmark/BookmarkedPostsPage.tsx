@@ -23,7 +23,7 @@ const BookmarkedPosts = () => {
     const fetchBookmarkedPosts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/posts/${user._id}/bookmarks`
+          `https://chattered.onrender.com/api/posts/${user._id}/bookmarks`
         );
         const { data } = response;
         setBookmarkedPosts(data.bookmarks);

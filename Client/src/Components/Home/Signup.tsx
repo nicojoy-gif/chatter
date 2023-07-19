@@ -30,7 +30,7 @@ const AddUserSchema = yup.object().shape({
     .test("check-username", "Username already exists", async (value) => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/auth/register/${value}`
+          `https://chattered.onrender.com/api/auth/register/${value}`
         );
 
         return response.data.available;
@@ -119,7 +119,7 @@ function Sign() {
       };
       console.log(user);
       try {
-        await axios.post("http://localhost:5000/api/auth/register", user);
+        await axios.post("https://chattered.onrender.com/api/auth/register", user);
         navigate("/login", { state: { isNewUser: true } });
 
         console.log(user);

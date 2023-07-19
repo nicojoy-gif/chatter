@@ -24,7 +24,7 @@ const Foryou: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/users?userId=${Post.userId}`
+        `https://chattered.onrender.com/api/users?userId=${Post.userId}`
       );
       setUser(res.data);
     };
@@ -33,7 +33,7 @@ const Foryou: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   const likeHandler = () => {
     try {
-      axios.put("http://localhost:5000/api/posts/" + Post._id + "/like", {
+      axios.put("https://chattered.onrender.com/api/posts/" + Post._id + "/like", {
         userId: currentUser._id,
       });
     } catch (err) {}

@@ -29,7 +29,7 @@ function PictureUploader({
         const formData = new FormData();
         formData.append(pictureType, file);
         axios
-          .put(`http://localhost:5000/api/users/${userId}`, formData)
+          .put(`https://chattered.onrender.com/api/users/${userId}`, formData)
           .then((res) => {
             console.log(`${pictureType} updated successfully`);
             onUpdatePicture(newPicture);

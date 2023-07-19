@@ -33,7 +33,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   const [isBookmarked, setIsBookmarked] = useState<boolean>(
     Post.bookmarks?.includes(currentUser?._id) || false
   );
-  const PF = "http://localhost:5000/images/";
+  const PF = "https://chattered.onrender.com/images/";
 
   useEffect(() => {
     setisLiked(Post.likes.includes(currentUser?._id));
@@ -45,7 +45,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/posts/${Post._id}/comments`
+          `https://chattered.onrender.com/api/posts/${Post._id}/comments`
         );
         const fetchedComments = response.data;
 
@@ -64,7 +64,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
     setIsBookmarked(!isBookmarked);
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/posts/${Post._id}/bookmarks`,
+        `https://chattered.onrender.com/api/posts/${Post._id}/bookmarks`,
         {
           userId: currentUser._id,
         }
@@ -92,7 +92,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   const likeHandler = () => {
     try {
-      axios.put("http://localhost:5000/api/posts/" + Post._id + "/like", {
+      axios.put("https://chattered.onrender.com/api/posts/" + Post._id + "/like", {
         userId: currentUser._id,
       });
     } catch (err) {}
@@ -107,7 +107,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   const incrementViewCount = async () => {
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/posts/" + Post._id + "/view",
+        "https://chattered.onrender.com/api/posts/" + Post._id + "/view",
         { userId: currentUser._id }
       );
       logEvent("Post Viewed", { postId: Post._id });
@@ -131,7 +131,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   const commentHandler = async (userId: any, commentText: any) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/posts/" + Post._id + "/comments",
+        "https://chattered.onrender.com/api/posts/" + Post._id + "/comments",
         {
           text: commentText,
           userId: userId,

@@ -59,7 +59,7 @@ const Account: React.FunctionComponent<AccountProps> = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/profile/submitFormData",
+        "https://chattered.onrender.com/api/profile/submitFormData",
         formData
       );
 

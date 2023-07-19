@@ -20,11 +20,11 @@ const Feed: React.FunctionComponent<FeedProps> = ({ username }) => {
         let response: AxiosResponse<Post[]>;
         if (username) {
           response = await axios.get<Post[]>(
-            "http://localhost:5000/api/posts/profile/" + username
+            "https://chattered.onrender.com/api/posts/profile/" + username
           );
         } else {
           response = await axios.get<Post[]>(
-            "http://localhost:5000/api/posts/timeline/" + user._id
+            "https://chattered.onrender.com/api/posts/timeline/" + user._id
           );
         }
 

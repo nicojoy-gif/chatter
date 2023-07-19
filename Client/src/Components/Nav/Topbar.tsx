@@ -22,7 +22,7 @@ function Topbar({ onToggleSidebar }: TopbarProps) {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/posts/search?tag=${tag}`
+        `https://chattered.onrender.com/api/posts/search?tag=${tag}`
       );
       setSearchResults(response.data);
     } catch (error) {
