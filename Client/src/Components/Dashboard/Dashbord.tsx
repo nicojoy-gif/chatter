@@ -13,16 +13,18 @@ import { Helmet } from "react-helmet";
 function Dashboard() {
   const storedUser = localStorage.getItem("user");
   const initialUser = storedUser ? JSON.parse(storedUser) : null;
+  const [error, setError] = useState<string | null>(null);
   const { user: contextUser } = useContext(AuthContext);
   const [user, setUser] = useState(initialUser || contextUser);
   const [activeTab, setActiveTab] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Call logPageView to track a page view
   useEffect(() => {
     logPageView();
   }, []);
+
   useEffect(() => {
     if (contextUser) {
       setUser(contextUser);
@@ -45,11 +47,37 @@ function Dashboard() {
   }, [user, isLoading]);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    // Simulate data fetching here (Replace this with actual data fetching)
+    // For demonstration purposes, we use a setTimeout to simulate data loading
+    const fetchData = () => {
+      setTimeout(() => {
+        // Simulate an error by setting a random condition
+        const hasError = Math.random() < 0.5;
 
+        if (hasError) {
+          setError("Unable to fetch data. Please check your credentials.");
+        } else {
+          setIsLoading(false);
+        }
+      }, 2000); // Simulating a 2-second data loading delay
+    };
+
+    fetchData();
+  }, []);
+  
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="border-t-4 border-blue-500 border-solid rounded-full animate-spin h-12 w-12"></div>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-red-500 text-lg">{error}</div>
+      </div>
+    );
   }
 
   return (

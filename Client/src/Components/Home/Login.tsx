@@ -23,33 +23,47 @@ function Login() {
   const location = useLocation();
   const isNewUser = location.state && location.state.isNewUser;
 
-  const Login = (e: any) => {
-    handleSubmit(e);
-    if (error !== "") {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  
+    try {
+      // Show any previous error
       setError("");
-    }
-    setAuthenticate(true);
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        console.log(result);
-        if (isNewUser === true) {
+      console.log(error);
+      setAuthenticate(true);
+  
+      const userCredential: UserCredential = {
+        email: email,
+        password: password,
+      };
+  
+      // Wait for the loginCall to complete and get the result (user object or error)
+      const user = await loginCall(userCredential, dispatch);
+  
+      // If login is successful, navigate to the appropriate page
+      if (user) {
+        if (isNewUser) {
           console.log("New user signed in");
-          console.log(isNewUser);
           navigate("/onboarding");
         } else {
           console.log("Existing user signed in");
           navigate("/dash");
         }
-      })
-
-      .catch((error) => {
-        console.log(error);
-        setAuthenticate(false);
-        setError("Unable to sign in. Please try again");
-      });
+      } else {
+        // If login fails, set the error message
+        setError("Unable to sign in. Please check your email and password.");
+        setAuthenticate(false); // Reset authenticate state here
+      }
+    } catch (error) {
+      console.log(error);
+      setError("An error occurred during login. Please try again later.");
+      setAuthenticate(false); // Reset authenticate state here
+    }
   };
-
+  
+  // ... (remaining code)
+  
+  
   const activate = () => {
     setActive(!active);
   };
@@ -119,7 +133,7 @@ console.log(dispatch)
                 </h2>
               </header>
               <div className="block  bg-white  ">
-                <form>
+                <form onSubmit={handleLogin}>
                   <div className="grid   mt-4 grid-cols-1">
                     <div className="grid  mt-4 grid-cols-1">
                       <div>
@@ -189,7 +203,7 @@ console.log(dispatch)
                           type="submit"
                           value="Login"
                           disabled={authenticate}
-                          onClick={(e) => Login(e)}
+                         
                           className="block w-full px-5 py-2 mt-3 text-center text-gray-100 font-medium pointer-cursor bg-indigo-700 rounded-md  shadow-sm focus:border-blue-200 focus:outline-none focus:ring"
                         />
                       </div>
