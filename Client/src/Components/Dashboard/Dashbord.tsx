@@ -50,15 +50,18 @@ function Dashboard() {
     // Simulate data fetching here (Replace this with actual data fetching)
     // For demonstration purposes, we use a setTimeout to simulate data loading
     const fetchData = () => {
-      setTimeout(() => {
-        // Simulate an error by setting a random condition
-        const hasError = Math.random() < 0.5;
+      const hasWrongPasswordError = Math.random() < 0.2;
+  // Simulate another error scenario
+  const hasOtherError = Math.random() < 0.2;
 
-        if (hasError) {
-          setError("Unable to fetch data. Please check your credentials.");
-        } else {
-          setIsLoading(false);
-        }
+  setTimeout(() => {
+    if (hasWrongPasswordError) {
+      setError("Wrong password. Please check your password and try again.");
+    } else if (hasOtherError) {
+      setError("An unexpected error occurred. Please try again later.");
+    } else {
+      setIsLoading(false);
+    }
       }, 2000); // Simulating a 2-second data loading delay
     };
 
