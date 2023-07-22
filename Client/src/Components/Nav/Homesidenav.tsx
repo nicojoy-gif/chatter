@@ -69,7 +69,7 @@ function Homesidenav({ isOpen }: SidebarProps) {
               className="text-2xl font-semibold font-heading py-2"
               to="/"
             >
-              <h1 className="text-indigo-600 font-bold pt-2 mx-12">CHATTER</h1>
+              <h1 className="text-indigo-600 font-bold py-3 mx-12">CHATTER</h1>
             </NavLink>
             <h3 className="relative mx-12 text-md font-medium py-1">
               Overview
@@ -103,18 +103,7 @@ function Homesidenav({ isOpen }: SidebarProps) {
                   <span className="">Bookmarks</span>
                 </NavLink>
               </li>
-              <li className="relative text-center">
-                <NavLink
-                  to="/analytics"
-                  className="flex h-7 cursor-pointer items-center truncate rounded-[5px] px-6 py-2 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-blue-500 hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-blue-500 active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none "
-                  data-te-sidenav-link-ref
-                >
-                  <span className="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
-                    <img src={n3} alt="vector" className="h-4 w-4" />
-                  </span>
-                  <span className="">User Analysis</span>
-                </NavLink>
-              </li>
+              
               <li className="relative text-center">
                 <NavLink
                   to=""
@@ -141,10 +130,10 @@ function Homesidenav({ isOpen }: SidebarProps) {
                   <span className="">Analytics</span>
                 </NavLink>
               </li>
-              {/* Add other menu items here */}
+             
             </ul>
             <div className=" flex  mx-10 content-center text-center justify-center">
-              <h3 className="relative  text-md font-medium py-2 ">
+              <h3 className="relative  text-md font-medium pt-5 pb-2 ">
                 Trending Tags{" "}
               </h3>
               <div className="flex-initial  my-auto">
@@ -250,7 +239,7 @@ function Homesidenav({ isOpen }: SidebarProps) {
                 </NavLink>
               </li>
             </ul>
-            <h3 className="relative mx-12 px-1 text-md font-medium py-1">
+            <h3 className="relative mx-12 px-1 text-md font-medium pt-5">
               Personal
             </h3>
             <ul className="relative mx-10  list-none " data-te-sidenav-menu-ref>

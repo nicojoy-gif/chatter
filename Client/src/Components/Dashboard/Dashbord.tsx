@@ -20,9 +20,30 @@ function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Call logPageView to track a page view
   useEffect(() => {
     logPageView();
+    const authToken = localStorage.getItem("authToken");
+
+    if (authToken) {
+      setUser({ isLoggedIn: true, token: authToken });
+    }
+
+    const fetchData = () => {
+      const hasWrongPasswordError = authToken && Math.random() < 0.2;
+      const hasOtherError = Math.random() < 0.2;
+
+      setTimeout(() => {
+        if (hasWrongPasswordError) {
+          setError("Wrong password. Please check your password and try again.");
+        } else if (hasOtherError) {
+          setError("An unexpected error occurred. Please try again later.");
+        } else {
+          setIsLoading(false);
+        }
+      }, 2000);
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -51,23 +72,23 @@ function Dashboard() {
     // For demonstration purposes, we use a setTimeout to simulate data loading
     const fetchData = () => {
       const hasWrongPasswordError = Math.random() < 0.2;
-  // Simulate another error scenario
-  const hasOtherError = Math.random() < 0.2;
+      // Simulate another error scenario
+      const hasOtherError = Math.random() < 0.2;
 
-  setTimeout(() => {
-    if (hasWrongPasswordError) {
-      setError("Wrong password. Please check your password and try again.");
-    } else if (hasOtherError) {
-      setError("An unexpected error occurred. Please try again later.");
-    } else {
-      setIsLoading(false);
-    }
+      setTimeout(() => {
+        if (hasWrongPasswordError) {
+          setError("Wrong password. Please check your password and try again.");
+        } else if (hasOtherError) {
+          setError("An unexpected error occurred. Please try again later.");
+        } else {
+          setIsLoading(false);
+        }
       }, 2000); // Simulating a 2-second data loading delay
     };
 
     fetchData();
   }, []);
-  
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">

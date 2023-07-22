@@ -54,6 +54,7 @@ function Login() {
         setError("Unable to sign in. Please check your email and password.");
         setAuthenticate(false); // Reset authenticate state here
       }
+      localStorage.setItem("authToken", user.token);
     } catch (error) {
       console.log(error);
       setError("An error occurred during login. Please try again later.");
@@ -67,19 +68,7 @@ function Login() {
   const activate = () => {
     setActive(!active);
   };
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const userCredential: UserCredential = {
-      email: email,
-      password: password,
-    };
-console.log(userCredential)
-console.log(dispatch)
-    loginCall(userCredential, dispatch);
-
-    console.log(errors);
-    console.log(user);
-  };
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
