@@ -37,11 +37,11 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   useEffect(() => {
     setisLiked(Post.likes.includes(currentUser?._id));
-  }, [currentUser._id, Post.likes]);
-  console.log(currentUser)
+  }, [currentUser?._id, Post.likes]);
+  
   useEffect(() => {
     setView(Post.view.includes(currentUser?._id));
-  }, [currentUser._id, Post.view]);
+  }, [currentUser?._id, Post.view]);
   useEffect(() => {
     const fetchComments = async () => {
       try {

@@ -50,11 +50,13 @@ function Dashboard() {
       }, 2000);
     });
   };
-
+console.log(user)
+console.log(contextUser)
   useEffect(() => {
     if (contextUser) {
-      setUser(contextUser);
-      localStorage.setItem("user", JSON.stringify(contextUser));
+      console.log(contextUser)
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
     }
     console.log(user)
     console.log(contextUser)
