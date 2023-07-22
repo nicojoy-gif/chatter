@@ -25,32 +25,40 @@ function Dashboard() {
     const authToken = localStorage.getItem("authToken");
 
     if (authToken) {
-      setUser({ isLoggedIn: true, token: authToken });
-    }
-
-    const fetchData = () => {
-      const hasWrongPasswordError = authToken && Math.random() < 0.2;
-      const hasOtherError = Math.random() < 0.2;
-
-      setTimeout(() => {
-        if (hasWrongPasswordError) {
-          setError("Wrong password. Please check your password and try again.");
-        } else if (hasOtherError) {
-          setError("An unexpected error occurred. Please try again later.");
-        } else {
+      fetchUserData(authToken)
+        .then((userData) => {
+         
           setIsLoading(false);
-        }
-      }, 2000);
-    };
-
-    fetchData();
+        })
+        .catch((error) => {
+          setError("An unexpected error occurred. Please try again later.");
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
   }, []);
+
+  const fetchUserData = async (authToken:any) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const userData = {
+          isLoggedIn: true,
+          token: authToken,
+        };
+        resolve(userData);
+      }, 2000);
+    });
+  };
 
   useEffect(() => {
     if (contextUser) {
       setUser(contextUser);
       localStorage.setItem("user", JSON.stringify(contextUser));
     }
+    console.log(user)
+    console.log(contextUser)
+    console.log(user.username)
   }, [contextUser]);
 
   const toggleSidebar = () => {
@@ -67,27 +75,7 @@ function Dashboard() {
     }
   }, [user, isLoading]);
 
-  useEffect(() => {
-    // Simulate data fetching here (Replace this with actual data fetching)
-    // For demonstration purposes, we use a setTimeout to simulate data loading
-    const fetchData = () => {
-      const hasWrongPasswordError = Math.random() < 0.2;
-      // Simulate another error scenario
-      const hasOtherError = Math.random() < 0.2;
-
-      setTimeout(() => {
-        if (hasWrongPasswordError) {
-          setError("Wrong password. Please check your password and try again.");
-        } else if (hasOtherError) {
-          setError("An unexpected error occurred. Please try again later.");
-        } else {
-          setIsLoading(false);
-        }
-      }, 2000); // Simulating a 2-second data loading delay
-    };
-
-    fetchData();
-  }, []);
+ 
 
   if (isLoading) {
     return (
@@ -165,8 +153,8 @@ function Dashboard() {
                 </h3>
               </div>
             </div>
-            {activeTab === 0 && user && <AllFeed username={user.username} />}
-            {activeTab === 1 && user && <Feed username={user.username} />}
+            {activeTab === 0 && user && <AllFeed username={user?.username} />}
+            {activeTab === 1 && user && <Feed username={user?.username} />}
             {activeTab === 2 && user && <Recent username={user?.username} />}
           </div>
         </div>

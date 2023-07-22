@@ -39,7 +39,7 @@ function Login() {
   
       // Wait for the loginCall to complete and get the result (user object or error)
       const user = await loginCall(userCredential, dispatch);
-  
+  console.log(user)
       // If login is successful, navigate to the appropriate page
       if (user) {
         if (isNewUser) {

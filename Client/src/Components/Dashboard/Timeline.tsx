@@ -38,6 +38,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   useEffect(() => {
     setisLiked(Post.likes.includes(currentUser?._id));
   }, [currentUser._id, Post.likes]);
+  console.log(currentUser)
   useEffect(() => {
     setView(Post.view.includes(currentUser?._id));
   }, [currentUser._id, Post.view]);
