@@ -23,7 +23,7 @@ const Recent: React.FunctionComponent<FeedProps> = ({ username }) => {
           );
         } else {
           response = await axios.get<Post[]>(
-            "https://chattered.onrender.com/api/posts/recent/" + user._id
+            "https://chattered.onrender.com/api/posts/recent/" + user?._id
           );
         }
 
@@ -42,7 +42,7 @@ const Recent: React.FunctionComponent<FeedProps> = ({ username }) => {
     };
 
     fetchPosts();
-  }, [username, user._id]);
+  }, [username, user?._id]);
 
   useEffect(() => {
     console.log(posts);

@@ -20,7 +20,9 @@ function Profile() {
 
   const handleProfilePictureChange = async (event:any) => {
     const file = event.target.files[0];
+    console.log(file)
     const formData = new FormData();
+    console.log(formData)
     formData.append('profilePicture', file);
 
     try {
@@ -33,9 +35,11 @@ function Profile() {
         },
        
       });
-
+console.log(formData)
+console.log(user)
       // Update the profile picture in the UI
       const reader = new FileReader();
+      console.log(reader)
       reader.onloadend = () => {
         setProfilePicture(reader.result);
         

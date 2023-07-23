@@ -14,12 +14,22 @@ function Dashboard() {
   const storedUser = localStorage.getItem("user");
   const initialUser = storedUser ? JSON.parse(storedUser) : null;
   const [error, setError] = useState<string | null>(null);
-  const { user: contextUser } = useContext(AuthContext);
+  const { user: contextUser, dispatch } = useContext(AuthContext);
   const [user, setUser] = useState(initialUser || contextUser);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const updateUserFromLocalStorage = () => {
+    const storedUser = localStorage.getItem("user");
+    const initialUser = storedUser ? JSON.parse(storedUser) : null;
+    dispatch({ type: "UPDATE_USER_FROM_STORAGE", payload: initialUser });
+  };
+  useEffect(() => {
+    updateUserFromLocalStorage();
+  }, []);
+  
+  
   useEffect(() => {
     logPageView();
     const authToken = localStorage.getItem("authToken");
@@ -50,17 +60,13 @@ function Dashboard() {
       }, 2000);
     });
   };
-console.log(user)
-console.log(contextUser)
   useEffect(() => {
     if (contextUser) {
-      console.log(contextUser)
+     
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
     }
-    console.log(user)
-    console.log(contextUser)
-    console.log(user.username)
+    
   }, [contextUser]);
 
   const toggleSidebar = () => {

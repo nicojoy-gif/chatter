@@ -24,7 +24,7 @@ const Feed: React.FunctionComponent<FeedProps> = ({ username }) => {
           );
         } else {
           response = await axios.get<Post[]>(
-            "https://chattered.onrender.com/api/posts/timeline/" + user._id
+            "https://chattered.onrender.com/api/posts/timeline/" + user?._id
           );
         }
 
@@ -41,7 +41,7 @@ const Feed: React.FunctionComponent<FeedProps> = ({ username }) => {
     };
 
     fetchPosts();
-  }, [username, user._id]);
+  }, [username, user?._id]);
 
   useEffect(() => {
     console.log(posts);

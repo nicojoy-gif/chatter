@@ -15,7 +15,10 @@ export const LoginSuccess = (user: any): Action => ({
   type: "LOGIN_SUCCESS",
   payload: user,
 });
-
+export const UPDATE_USER_FROM_STORAGE = (user: any): Action => ({
+  type: "UPDATE_USER_FROM_STORAGE",
+  payload: user,
+});
 export const LoginFailure = (error: any): Action => ({
   type: "LOGIN_FAILURE",
   payload: error,

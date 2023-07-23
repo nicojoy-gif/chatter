@@ -46,6 +46,14 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
             isFetching: true,
             errors: false,
           };
+          case "UPDATE_USER_FROM_STORAGE":
+            return {
+              ...state,
+              user: action.payload,
+              isFetching: false,
+              errors: false,
+            };
+      
         case "LOGIN_SUCCESS":
           return {
             ...state,
