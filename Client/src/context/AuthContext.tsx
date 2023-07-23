@@ -10,12 +10,16 @@ interface Action {
   type: string;
   payload?: any;
 }
+const storedUser = localStorage.getItem("user");
+const initialUser = storedUser ? JSON.parse(storedUser) : null;
+
 
 const INITIAL_STATE: State = {
-  user: null,
+  user: initialUser,
   isFetching: false,
   errors: false,
 };
+
 
 interface AuthContextType {
   user: any;
