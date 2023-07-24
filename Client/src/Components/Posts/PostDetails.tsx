@@ -26,10 +26,11 @@ const PostDetails: React.FunctionComponent<PostDetailsProps> = ({ Post }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = "https://chattered.onrender.com/images/";
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -38,6 +39,7 @@ const PostDetails: React.FunctionComponent<PostDetailsProps> = ({ Post }) => {
         setPost(res.data);
       } catch (err) {
         console.log(err);
+        console.log(post?.img)
       }
     };
 

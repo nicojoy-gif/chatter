@@ -14,6 +14,8 @@ type Post = {
 const Feed: React.FunctionComponent<FeedProps> = ({ username }) => {
   const [posts, setPost] = useState<any>([]);
   const { user } = useContext(AuthContext);
+  console.log(user)
+  const PF = "https://chattered.onrender.com/images/";
   useEffect(() => {
     const fetchPosts = async () => {
       try {

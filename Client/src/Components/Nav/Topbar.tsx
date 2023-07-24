@@ -13,6 +13,8 @@ function Topbar({ onToggleSidebar }: TopbarProps) {
   const [searchTag, setSearchTag] = useState<string>("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const { user } = useContext(AuthContext);
+  console.log(user)
+const PF = "https://chattered.onrender.com/images/";
 
   const handleSearchInputChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -31,7 +33,7 @@ function Topbar({ onToggleSidebar }: TopbarProps) {
   };
 
   const handleSearch = () => {
-    console.log("Search clicked");
+   
   };
 
   return (
@@ -87,7 +89,7 @@ function Topbar({ onToggleSidebar }: TopbarProps) {
                   <Link to={`/profile/${user.username}`}>
                     <img
                       className="h-6 w-s6 rounded-full"
-                      src={avatarImage}
+                      src={user.profilePicture ? PF + user.profilePicture : avatarImage}
                       alt="chatter-dp"
                     />
                   </Link>

@@ -55,34 +55,33 @@ function Post() {
     const newPost = {
       userId: user?._id || "",
       desc: sanitizedDesc.replace(/(<([^>]+)>)/gi, ""),
-      img: null, // Set the initial value to null
+      img: null,
       title,
       subtitle,
       tags,
       text,
     };
   
-    if (file) {
-      // Handle image upload only if the file is present
-      const data = new FormData();
-      const fileName = file.name;
-      data.append("file", file);
-      data.append("name", fileName);
-      newPost.img = fileName; // Set the image to the file name
-      try {
-        await axios.post("https://chattered.onrender.com/api/upload", data);
-        navigate("/dash");
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  
     try {
+      if (file) {
+        // Handle image upload only if the file is present
+        const data = new FormData();
+        const fileName = file.name;
+        data.append("file", file);
+        data.append("name", fileName);
+        newPost.img = fileName; // Set the image to the file name
+        console.log(fileName);
+        console.log(newPost.img);
+        await axios.post("https://chattered.onrender.com/api/upload", data);
+      }
+  
       await axios.post("https://chattered.onrender.com/api/posts", newPost);
+      navigate("/dash");
     } catch (err) {
       console.log(err);
     }
   };
+  
   
   return (
     <div>

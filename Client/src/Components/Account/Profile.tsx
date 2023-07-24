@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Homesidenav from '../Nav/Homesidenav';
 import avatar from '../../styles/avatar.png';
 import { useParams } from 'react-router-dom';
@@ -6,70 +6,89 @@ import axios from 'axios';
 import Feed from '../Dashboard/Feed';
 import background from '../../styles/background.jpg';
 import Topbar from '../Nav/Topbar';
-import {Helmet} from 'react-helmet'
+import { Helmet } from 'react-helmet';
+import ProfilePictureInput from './ProfilePictureInput';
+import { AuthContext } from '../../context/AuthContext';
 
-function Profile() {
-  const [user, setUser] = useState<any>({});
+function Profile() { 
+  const storedUser = localStorage.getItem("user");
+const initialUser = storedUser ? JSON.parse(storedUser) : null;
+
+const { user: contextUser, dispatch } = useContext(AuthContext);
+const [user, setUser] = useState(initialUser || contextUser);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profilePicture, setProfilePicture] = useState(user.profilePicture || avatar);
-  
+
+  const PF = "https://chattered.onrender.com/images/";
+  const updateUserFromLocalStorage = () => {
+    const storedUser = localStorage.getItem("user");
+    const initialUser = storedUser ? JSON.parse(storedUser) : null;
+    dispatch({ type: "UPDATE_USER_FROM_STORAGE", payload: initialUser });
+  };
+  useEffect(() => {
+    updateUserFromLocalStorage();
+  }, []);
   const username = useParams().username;
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+console.log(contextUser)
 
-  const handleProfilePictureChange = async (event:any) => {
-    const file = event.target.files[0];
-    console.log(file)
-    const formData = new FormData();
-    console.log(formData)
-    formData.append('profilePicture', file);
-
+useEffect(() => {
+  const fetchUser = async () => {
     try {
-      // Send the file to the backend API endpoint
-      await axios.put(`https://chattered.onrender.com/api/users/${user._id}`, formData, {
-        
-      headers: {
-          'Content-Type': 'multipart/form-data',
-        
-        },
-       
-      });
-console.log(formData)
-console.log(user)
-      // Update the profile picture in the UI
-      const reader = new FileReader();
-      console.log(reader)
-      reader.onloadend = () => {
-        setProfilePicture(reader.result);
-        
-        localStorage.setItem('profilePicture', reader.result as string);
-        
-      };
-      reader.readAsDataURL(file);
+      const res = await axios.get(`https://chattered.onrender.com/api/users?username=${username}`);
+      setUser(res.data);
+      dispatch({ type: 'UPDATE_USER_FROM_STORAGE', payload: res.data });
+      setProfilePicture(res.data.profilePicture || avatar);
+
+      // Save the profile picture URL to localStorage
+      localStorage.setItem('profilePicture', res.data.profilePicture || avatar);
     } catch (error) {
-      console.error('Failed to update profile picture', error);
+      console.error(error);
     }
   };
+  fetchUser();
+}, [username]);
+const handleProfilePictureChange = async (file: File) => {
+  const formData = new FormData();
+  formData.append('profilePicture', file);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await axios.get(`https://chattered.onrender.com/api/users?username=${username}`);
-        setUser(res.data);
-        
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
-  }, [username]);
+  try {
+    // Send the file to the backend API endpoint
+    await updateUserProfilePicture(formData);
 
+    // Update the profile picture in the UI
+    setProfilePicture(URL.createObjectURL(file));
+
+    // Save the new profile picture URL to localStorage
+    localStorage.setItem('profilePicture', URL.createObjectURL(file));
+  } catch (error) {
+    console.error('Failed to update profile picture', error);
+  }
+};
+
+const updateUserProfilePicture = async (formData: FormData) => {
+  try {
+    await axios.put(`https://chattered.onrender.com/api/users/${user._id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } catch (error) {
+    throw new Error('Failed to update profile picture');
+  }
+};
+
+
+console.log(user)
+
+console.log(contextUser)
   return (
     <div>
       <Helmet>
-        <title>Account Profile </title>
-        <meta name="description" content='Welcome to my Account Profile ' />
+        <title>Account Profile</title>
+        <meta name="description" content='Welcome to my Account Profile' />
       </Helmet>
       <Topbar onToggleSidebar={toggleSidebar} />
       <Homesidenav isOpen={sidebarOpen} onToggleSidebar={toggleSidebar} />
@@ -82,17 +101,11 @@ console.log(user)
             <label htmlFor='profilePictureInput'>
               <img
                 className='h-36 w-36 rounded-full absolute right-1/2 mx-auto top-56 border-white border-2'
-                src={profilePicture}
+                src={PF + profilePicture}
                 alt='avatar'
               />
             </label>
-            <input
-              id='profilePictureInput'
-              type='file'
-              accept='image/*'
-              style={{ display: 'none' }}
-              onChange={handleProfilePictureChange}
-            />
+            <ProfilePictureInput onChange={handleProfilePictureChange} />
           </div>
 
           <div className='profileInfo text-center'>

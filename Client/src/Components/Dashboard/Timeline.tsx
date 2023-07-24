@@ -16,7 +16,11 @@ interface Comment {
   text: string;
 }
 const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
-  const [user] = useState<any>({});
+  const storedUser = localStorage.getItem("user");
+  const initialUser = storedUser ? JSON.parse(storedUser) : null;
+
+  const { user: currentUser, dispatch } = useContext(AuthContext);
+  const [user, setUser] = useState(initialUser || currentUser);
   const [like, setLike] = useState<number>(Post.likes ? Post.likes.length : 0);
   const [isliked, setisLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -29,16 +33,26 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   const [isCommentBoxOpen, setCommentBoxOpen] = useState(false);
 
   const [bookmarks, setBookmarks] = useState<{ _id: string }[]>([]);
-  const { user: currentUser } = useContext(AuthContext);
+
   const [isBookmarked, setIsBookmarked] = useState<boolean>(
     Post.bookmarks?.includes(currentUser?._id) || false
   );
   const PF = "https://chattered.onrender.com/images/";
-
+  console.log(Post.img);
+  console.log(user);
+  console.log(currentUser);
+  const updateUserFromLocalStorage = () => {
+    const storedUser = localStorage.getItem("user");
+    const initialUser = storedUser ? JSON.parse(storedUser) : null;
+    dispatch({ type: "UPDATE_USER_FROM_STORAGE", payload: initialUser });
+  };
+  useEffect(() => {
+    updateUserFromLocalStorage();
+  }, []);
   useEffect(() => {
     setisLiked(Post.likes.includes(currentUser?._id));
   }, [currentUser?._id, Post.likes]);
-  
+
   useEffect(() => {
     setView(Post.view.includes(currentUser?._id));
   }, [currentUser?._id, Post.view]);
@@ -54,7 +68,6 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
         setCommentCount(fetchedComments.length);
       } catch (err) {
         console.error("Error:", err);
-        // Handle the error accordingly
       }
     };
 
@@ -165,7 +178,11 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
             <div className="grid content-center">
               <img
                 className="h-12 w-12 rounded-full "
-                src={avatar || user.profilePicture}
+                src={
+                  currentUser.profilePicture
+                    ? PF + currentUser.profilePicture
+                    : avatar
+                }
                 alt="avatar"
               />
             </div>

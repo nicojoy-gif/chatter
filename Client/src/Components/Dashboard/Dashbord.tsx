@@ -29,7 +29,7 @@ function Dashboard() {
     updateUserFromLocalStorage();
   }, []);
   
-  
+  console.log(contextUser)
   useEffect(() => {
     logPageView();
     const authToken = localStorage.getItem("authToken");
