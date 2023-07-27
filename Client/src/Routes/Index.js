@@ -9,8 +9,6 @@ import Dashbord from "../Components/Dashboard/Dashbord";
 import LogoutPage from "../Components/Home/Logout";
 import Post from "../Components/Posts/Post";
 import Profile from "../Components/Account/Profile";
-
-import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Account from "../Components/Account/Account";
 import AccountSetting from "../Components/Account/AccountSetting";
@@ -19,9 +17,7 @@ import BookmarkedPosts from "../Components/bookmark/BookmarkedPostsPage";
 import MatchedPosts from "../Components/bookmark/Matched";
 import MatchedPostsPage from "../Components/bookmark/MatchPostPage";
 import AnalyticsView from "../Components/Analytics/AnaltyicView";
-
 import { Highlights } from "../Components/Analytics/Highlights";
-
 
 function Index() {
   const { user } = useContext(AuthContext);
