@@ -34,7 +34,7 @@ function Index() {
         <Route path="/setting" element={<AccountSetting />} />
         <Route
           path="/sign"
-          element={user ? <Navigate to="/dash" /> : <Sign />}
+          element={ <Sign />}
         />
         <Route path="/matched-posts/:tag" element={<MatchedPostsPage />} />
         <Route path="/analytics" element={<AnalyticsView />}/>
@@ -42,7 +42,7 @@ function Index() {
         <Route path="/profile/:username" element={<Profile />} />
         <Route
           path="/login"
-          element={user ? <Navigate to="/dash" /> : <Login />}
+          element={ <Login />}
         />
         <Route path="/about" element={<About />} />
         <Route path="/onboarding" element={<Account />} />
