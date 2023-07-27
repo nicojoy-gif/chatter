@@ -8,6 +8,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { logEvent } from "../ga";
+import firebase from "firebase/compat/app";
+import "firebase/compat/analytics";
 interface TimelineProps {
   Post: any;
 }
@@ -38,9 +40,11 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
     Post.bookmarks?.includes(currentUser?._id) || false
   );
   const PF = "https://chattered.onrender.com/images/";
-  console.log(Post.img);
+  const logPostLikeEvent = (Post:any) => {
+    firebase.analytics().logEvent("post_like", { postId: Post._id });
+  };
   console.log(user);
-  console.log(currentUser);
+  console.log(Post)
   const updateUserFromLocalStorage = () => {
     const storedUser = localStorage.getItem("user");
     const initialUser = storedUser ? JSON.parse(storedUser) : null;
@@ -106,6 +110,7 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   const likeHandler = () => {
     try {
+      logPostLikeEvent(Post);
       axios.put(
         "https://chattered.onrender.com/api/posts/" + Post._id + "/like",
         {
@@ -123,10 +128,13 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
 
   const incrementViewCount = async () => {
     try {
+      firebase.analytics().logEvent("post_viewed", { postId: Post._id });
       const response = await axios.put(
         "https://chattered.onrender.com/api/posts/" + Post._id + "/view",
         { userId: currentUser._id }
       );
+      // Function to log the like event
+
       logEvent("Post Viewed", { postId: Post._id });
     } catch (error) {
       console.error("Error:", error);

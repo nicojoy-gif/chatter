@@ -2,7 +2,7 @@
 
 import ReactGA from 'react-ga4';
 
-ReactGA.initialize("G-9LNPEENX44")
+ReactGA.initialize("G-EB35D3JBV4")
 
 
 export default ReactGA;

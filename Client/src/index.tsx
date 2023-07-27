@@ -14,7 +14,7 @@ import ReactGA from 'react-ga4'
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-initGA('G-9LNPEENX44');
+initGA('G-EB35D3JBV4');
 root.render(
   <React.StrictMode>
     <BrowserRouter>

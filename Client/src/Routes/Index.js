@@ -15,11 +15,13 @@ import { AuthContext } from "../context/AuthContext";
 import Account from "../Components/Account/Account";
 import AccountSetting from "../Components/Account/AccountSetting";
 import PostDetails from "../Components/Posts/PostDetails";
-
 import BookmarkedPosts from "../Components/bookmark/BookmarkedPostsPage";
 import MatchedPosts from "../Components/bookmark/Matched";
 import MatchedPostsPage from "../Components/bookmark/MatchPostPage";
 import AnalyticsView from "../Components/Analytics/AnaltyicView";
+
+import { Highlights } from "../Components/Analytics/Highlights";
+
 
 function Index() {
   const { user } = useContext(AuthContext);
@@ -34,7 +36,7 @@ function Index() {
         <Route path="/setting" element={<AccountSetting />} />
         <Route
           path="/sign"
-          element={user ? <Navigate to="/dash" /> : <Sign />}
+          element={<Sign />}
         />
         <Route path="/matched-posts/:tag" element={<MatchedPostsPage />} />
         <Route path="/analytics" element={<AnalyticsView />}/>
@@ -42,13 +44,14 @@ function Index() {
         <Route path="/profile/:username" element={<Profile />} />
         <Route
           path="/login"
-          element={user ? <Navigate to="/dash" /> : <Login />}
+          element={ <Login />}
         />
         <Route path="/about" element={<About />} />
         <Route path="/onboarding" element={<Account />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="/logout" element={<LogoutPage />} />
         <Route path="/bookmark" element={<BookmarkedPosts />} />
+        <Route path='/analyt' element={<Highlights />} />
       </Routes>
     </div>
   );

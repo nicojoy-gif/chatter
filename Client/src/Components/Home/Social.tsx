@@ -8,7 +8,7 @@ export const SignInWithSM = (provider: firebase.auth.AuthProvider) =>
     const user: firebase.User | null = result.user;
     console.log(user);
     if (user) {
-      
+      console.log(user)
       console.log(user.email);
       try {
         await axios.post("https://chattered.onrender.com/api/auth/register", user);

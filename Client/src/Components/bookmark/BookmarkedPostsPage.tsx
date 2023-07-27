@@ -6,22 +6,20 @@ import Homesidenav from "../Nav/Homesidenav";
 import Timeline from "../Dashboard/Timeline";
 
 const BookmarkedPosts = () => {
-  const { user } = useContext(AuthContext);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // State to store the bookmarked posts
   const [bookmarkedPosts, setBookmarkedPosts] = useState<
-    { _id: string; title: string; desc: string; content: string }[]
-  >(() => {
-    // Retrieve bookmarked posts from localStorage when the component mounts
-    const savedBookmarkedPosts = localStorage.getItem("bookmarkedPosts");
-    return savedBookmarkedPosts ? JSON.parse(savedBookmarkedPosts) : [];
-  });
+    { _id: string; title: String; desc: string; content: string }[]
+  >([]);
+  const { user } = useContext(AuthContext);
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-console.log(user)
+
+  // Fetch bookmarked posts from the server
   useEffect(() => {
-    console.log(user)
     const fetchBookmarkedPosts = async () => {
       try {
         const response = await axios.get(
@@ -29,15 +27,13 @@ console.log(user)
         );
         const { data } = response;
         setBookmarkedPosts(data.bookmarks);
-        // Save the bookmarked posts to localStorage
-        localStorage.setItem("bookmarkedPosts", JSON.stringify(data.bookmarks));
       } catch (error) {
         console.error("Error fetching bookmarked posts:", error);
       }
     };
 
     fetchBookmarkedPosts();
-  }, [user._id]);
+  }, [user._id, bookmarkedPosts]);
 
   return (
     <div className="lg:!pl-[240px] ">

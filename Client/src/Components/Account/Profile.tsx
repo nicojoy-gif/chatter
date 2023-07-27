@@ -39,9 +39,8 @@ useEffect(() => {
     try {
       const res = await axios.get(`https://chattered.onrender.com/api/users?username=${username}`);
       setUser(res.data);
-      dispatch({ type: 'UPDATE_USER_FROM_STORAGE', payload: res.data });
       setProfilePicture(res.data.profilePicture || avatar);
-
+      dispatch({ type: 'UPDATE_USER_FROM_STORAGE', payload: res.data });
       // Save the profile picture URL to localStorage
       localStorage.setItem('profilePicture', res.data.profilePicture || avatar);
     } catch (error) {
