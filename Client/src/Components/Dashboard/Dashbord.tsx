@@ -62,12 +62,11 @@ function Dashboard() {
   };
   useEffect(() => {
     if (contextUser) {
-     
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
+      setUser(contextUser); // Update the user state with the contextUser value
+      localStorage.setItem("user", JSON.stringify(contextUser));
     }
-    
   }, [contextUser]);
+  
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);

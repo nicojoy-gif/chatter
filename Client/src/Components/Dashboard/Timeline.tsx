@@ -43,8 +43,6 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   const logPostLikeEvent = (Post:any) => {
     firebase.analytics().logEvent("post_like", { postId: Post._id });
   };
-  console.log(user);
-  console.log(Post)
   const updateUserFromLocalStorage = () => {
     const storedUser = localStorage.getItem("user");
     const initialUser = storedUser ? JSON.parse(storedUser) : null;
