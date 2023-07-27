@@ -18,9 +18,10 @@ interface Comment {
   text: string;
 }
 const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
+  const [author, setAuthor] = useState<any>(null);
   const storedUser = localStorage.getItem("user");
   const initialUser = storedUser ? JSON.parse(storedUser) : null;
-
+const [users, setUsers] = useState<any>({})
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [user, setUser] = useState(initialUser || currentUser);
   const [like, setLike] = useState<number>(Post.likes ? Post.likes.length : 0);
@@ -51,6 +52,17 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
   useEffect(() => {
     updateUserFromLocalStorage();
   }, []);
+  console.log(Post.userId)
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await axios.get(`https://chattered.onrender.com/api/users?userId=${Post.userId}`);
+      setUsers(res.data);
+    };
+    fetchUsers();
+  }, [Post.userId]);
+  
+  
+  
   useEffect(() => {
     setisLiked(Post.likes.includes(currentUser?._id));
   }, [currentUser?._id, Post.likes]);
@@ -185,21 +197,21 @@ const Timeline: React.FunctionComponent<TimelineProps> = ({ Post }) => {
               <img
                 className="h-12 w-12 rounded-full "
                 src={
-                  currentUser.profilePicture
-                    ? PF + currentUser.profilePicture
+                  users.profilePicture
+                    ? PF + users.profilePicture
                     : avatar
                 }
                 alt="avatar"
               />
             </div>
             <div>
-              <Link to={`/profile/${user.username}`}>
+              <Link to={`/profile/${users.username}`}>
                 <h3 className="font-semibold text-xl p-2 pointer-cursor">
-                  {user.username}
+                  {users.username}
                 </h3>
               </Link>
               <p className="px-2 text-gray-400">
-                {user.occupation} .{format(Post.createdAt)}
+                {users.occupation} .{format(Post.createdAt)}
               </p>
             </div>
           </div>
