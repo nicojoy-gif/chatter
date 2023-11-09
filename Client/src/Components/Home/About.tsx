@@ -13,7 +13,6 @@ function About() {
   return (
     <div>
       <section className="h-full ">
-        <Nav />
         <div className=" grid lg:grid-cols-2 grid-cols-1  content-center my-8  ">
           <div className="m-auto w-4/5 ">
             <h2 className="font-bold text-3xl py-4">About Chatter</h2>
